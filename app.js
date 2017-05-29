@@ -7,12 +7,18 @@ var http = require('http'),
     cors = require('cors'),
     passport = require('passport'),
     errorhandler = require('errorhandler'),
-    mongoose = require('mongoose');
+    mongoose = require('mongoose'),
+    connect = require('connect'),
+    cookieParser = require('cookie-parser'),
+    cookieSession = require('cookie-session');
 
 var isProduction = process.env.NODE_ENV === 'production';
 
 // Create global app object
 var app = express();
+
+app.use(cookieParser());
+app.use(cookieSession({ secret: 'tobo!', cookie: { maxAge: 60 * 60 * 1000 } }));
 
 app.use(cors());
 // Normal express config defaults
